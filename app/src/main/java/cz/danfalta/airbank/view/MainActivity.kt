@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.list.getListAdapter
 import com.afollestad.materialdialogs.list.listItemsSingleChoice
 import cz.danfalta.airbank.R
 import cz.danfalta.airbank.databinding.ActivityMainBinding
@@ -20,6 +21,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, TransactionListViewModel>
 
     companion object {
         const val KEY_STATE_FILTER_SELECTION = "KEY_STATE_FILTER_SELECTION"
+        const val KEY_STATE_FILTER_OPEN = "KEY_STATE_FILTER_OPEN"
     }
 
     override fun getLayoutId(): Int {
@@ -39,13 +41,13 @@ class MainActivity : BaseActivity<ActivityMainBinding, TransactionListViewModel>
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
         outState?.putInt(KEY_STATE_FILTER_SELECTION, filterSelection)
+        outState?.putBoolean(KEY_STATE_FILTER_OPEN, filterDialog.isShowing)
     }
 
     private fun setupViews(savedInstanceState: Bundle?) {
-        createFilterDialog()
-        savedInstanceState?.let {
-            filterSelection = savedInstanceState.getInt(KEY_STATE_FILTER_SELECTION)
-        }
+        createFilterDialog(savedInstanceState?.getInt(KEY_STATE_FILTER_SELECTION) ?: 0)
+        val isFilterShowing = savedInstanceState?.getBoolean(KEY_STATE_FILTER_OPEN) ?: false
+        if (isFilterShowing) filterDialog.show()
     }
 
     private fun setupBinding() {
@@ -73,9 +75,10 @@ class MainActivity : BaseActivity<ActivityMainBinding, TransactionListViewModel>
         return super.onOptionsItemSelected(item)
     }
 
-    private fun createFilterDialog() {
+    private fun createFilterDialog(selection: Int) {
+        filterSelection = selection
         filterDialog = MaterialDialog(this)
-                .listItemsSingleChoice(R.array.filter, initialSelection = filterSelection) { dialog, index, text ->
+                .listItemsSingleChoice(R.array.filter, initialSelection = selection) { dialog, index, text ->
                     val transactionAdapter = recycler_view.adapter as TransactionAdapter
                     transactionAdapter.filter(
                             when (index) {
