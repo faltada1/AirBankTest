@@ -1,0 +1,66 @@
+ext {
+
+    //Versions
+    supportVersion = '28.0.0'
+    archLifecycleVersion = "1.1.1"
+    materialDialogVersion = "2.0.0-beta4"
+
+    constraintVersion = '1.1.3'
+    retrofitVersion = '2.3.0'
+    rxAndroidVersion = '2.0.2'
+    rxJavaVersion = '2.1.7'
+    //Test versions
+    junitVersion = '4.12'
+    mockitoVersion = '2.8.47'
+
+    //Packages
+    supportPackage = 'com.android.support'
+    materialDialogPackage='com.afollestad.material-dialogs'
+    archLifecyclePackage = 'android.arch.lifecycle'
+    retrofitPackage = 'com.squareup.retrofit2'
+    reactivePackage = 'io.reactivex.rxjava2'
+    //Test packages
+    junitPackage = 'junit'
+    mockitoPackage = 'org.mockito'
+
+    supportDependencies = [
+            design          : buildDependency(supportPackage, 'design', supportVersion),
+            recyclerView    : buildDependency(supportPackage, 'recyclerview-v7', supportVersion),
+            cardView        : buildDependency(supportPackage, 'cardview-v7', supportVersion),
+            appCompat       : buildDependency(supportPackage, 'appcompat-v7', supportVersion),
+            constraintLayout: buildExtendedPackDependency(supportPackage, 'constraint', 'constraint-layout', constraintVersion)
+    ]
+
+    designDependencies = [
+            materialDialog: buildDependency(materialDialogPackage, 'core', materialDialogVersion)
+    ]
+
+    retrofitDependencies = [
+            retrofit     : buildDependency(retrofitPackage, 'retrofit', retrofitVersion),
+            gson         : buildDependency(retrofitPackage, 'converter-gson', retrofitVersion),
+            rxAdapterJava: buildDependency(retrofitPackage, 'adapter-rxjava2', retrofitVersion)
+    ]
+
+    androidArchDependencies = [
+            extensions: buildDependency(archLifecyclePackage, 'extensions', archLifecycleVersion),
+            compiler  : buildDependency(archLifecyclePackage, 'compiler', archLifecycleVersion)
+    ]
+
+    rxDependencies = [
+            rxAndroid: buildDependency(reactivePackage, 'rxandroid', rxAndroidVersion),
+            rxJava   : buildDependency(reactivePackage, 'rxjava', rxJavaVersion)
+    ]
+
+    testingDependencies = [
+            junit  : buildDependency(junitPackage, 'junit', junitVersion),
+            mockito: buildDependency(mockitoPackage, 'mockito-core', mockitoVersion)
+    ]
+}
+
+static String buildDependency(String pack, String dependency, String version) {
+    return "${pack}:${dependency}:${version}"
+}
+
+static String buildExtendedPackDependency(String pack, String extendedPack, String dependency, String version) {
+    return "${pack}.${extendedPack}:${dependency}:${version}"
+}

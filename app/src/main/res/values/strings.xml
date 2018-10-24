@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">AirBank</string>
+
+    <string name="incoming">Incoming</string>
+    <string name="outgoing">Outgoing</string>
+    <string name="account_name_header">Account name</string>
+    <string name="account_number_header">Account number</string>
+    <string name="account_bank_code_header">Bank code</string>
+    <string name="filter">Filter</string>
+    <string name="cancel">Cancel</string>
+</resources>

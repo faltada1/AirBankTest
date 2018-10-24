@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="cz.danfalta.airbank.viewmodel.TransactionViewModel" />
+
+        <variable
+            name="transaction"
+            type="cz.danfalta.airbank.model.Transaction" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/layout_transaction"
+            layout="@layout/item_transaction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:transaction="@{transaction}" />
+
+        <TextView
+            android:id="@+id/text_account_name_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/account_name_header"
+            android:textSize="18sp"
+            android:visibility="@{viewmodel.visibilityObservableField}"
+            app:layout_constraintStart_toStartOf="@+id/layout_transaction"
+            app:layout_constraintTop_toBottomOf="@+id/layout_transaction" />
+
+        <TextView
+            android:id="@+id/text_account_number_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/account_number_header"
+            android:textSize="18sp"
+            android:visibility="@{viewmodel.visibilityObservableField}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_account_name_header" />
+
+        <TextView
+            android:id="@+id/text_bank_code_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/account_bank_code_header"
+            android:textSize="18sp"
+            android:visibility="@{viewmodel.visibilityObservableField}"
+            app:layout_constraintStart_toStartOf="@+id/text_account_number_header"
+            app:layout_constraintTop_toBottomOf="@+id/text_account_number_header" />
+
+        <TextView
+            android:id="@+id/text_account_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@{viewmodel.accountNameObservableField}"
+            android:textAlignment="textEnd"
+            android:textSize="18sp"
+            android:visibility="@{viewmodel.visibilityObservableField}"
+            app:layout_constraintEnd_toEndOf="@+id/layout_transaction"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/text_account_name_header"
+            app:layout_constraintTop_toBottomOf="@+id/layout_transaction"
+            tools:text="HKLI" />
+
+        <TextView
+            android:id="@+id/text_account_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@{viewmodel.accountNumberObservableField}"
+            android:textAlignment="textEnd"
+            android:textSize="18sp"
+            android:visibility="@{viewmodel.visibilityObservableField}"
+            app:layout_constraintEnd_toEndOf="@+id/text_account_name"
+            app:layout_constraintStart_toEndOf="@+id/text_account_number_header"
+            app:layout_constraintTop_toBottomOf="@+id/text_account_name"
+            tools:text="3246" />
+
+        <TextView
+            android:id="@+id/text_bank_code"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@{viewmodel.bankCodeObservableField}"
+            android:textAlignment="textEnd"
+            android:textSize="18sp"
+            android:visibility="@{viewmodel.visibilityObservableField}"
+            app:layout_constraintEnd_toEndOf="@+id/text_account_number"
+            app:layout_constraintStart_toEndOf="@+id/text_bank_code_header"
+            app:layout_constraintTop_toBottomOf="@+id/text_account_number"
+            tools:text="00000000" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
