@@ -2,10 +2,13 @@ package cz.danfalta.airbank.viewmodel
 
 import android.app.Application
 import android.view.View
+import androidx.databinding.Bindable
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import cz.danfalta.airbank.AirBankApplication
+import cz.danfalta.airbank.BR
 import cz.danfalta.airbank.model.ContraAccount
+import cz.danfalta.airbank.model.Transaction
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 
@@ -18,6 +21,13 @@ class TransactionViewModel(application: Application) : BaseViewModel(application
     var accountNameObservableField = ObservableField<String>()
     var accountNumberObservableField = ObservableField<String>()
     var bankCodeObservableField = ObservableField<String>()
+
+    @get:Bindable
+    var transaction: Transaction? = null
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.transaction)
+        }
 
     init {
         visibilityObservableField.set(View.GONE)

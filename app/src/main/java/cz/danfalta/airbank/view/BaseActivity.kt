@@ -11,19 +11,21 @@ import cz.danfalta.airbank.viewmodel.BaseViewModel
 abstract class BaseActivity<B : ViewDataBinding, T : BaseViewModel> : AppCompatActivity(), LifecycleOwner {
 
     abstract val viewModelClass: Class<T>
+    abstract val viewModelBindingVariable: Int
+    abstract val layoutId: Int
+
     lateinit var binding: B
-    val viewModel: T by lazy { ViewModelProviders.of(this).get(viewModelClass) }
+    lateinit var viewModel: T
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, getLayoutId())
+        viewModel = ViewModelProviders.of(this).get(viewModelClass)
+        binding = DataBindingUtil.setContentView(this, layoutId)
         binding.setLifecycleOwner(this)
+        binding.setVariable(viewModelBindingVariable, viewModel)
+        binding.executePendingBindings()
     }
 
-    /**
-     * @return layout resource id
-     */
-    abstract fun getLayoutId(): Int
 
     override fun onDestroy() {
         viewModel.detachView()

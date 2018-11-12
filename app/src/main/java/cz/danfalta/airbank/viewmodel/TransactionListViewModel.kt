@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import cz.danfalta.airbank.AirBankApplication
 import cz.danfalta.airbank.data.TransactionListResponse
 import cz.danfalta.airbank.model.Transaction
+import cz.danfalta.airbank.model.TransactionDirection
 import cz.danfalta.airbank.view.TransactionAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -38,12 +39,16 @@ class TransactionListViewModel(application: Application) : BaseViewModel(applica
 
     private fun handleResponse(response: TransactionListResponse) {
         response.transactionList?.let {
-            adapter.data= it
+            adapter.data = it
             adapter.notifyDataSetChanged()
         }
     }
 
     override fun detachView() {
         compositeDisposable.dispose()
+    }
+
+    fun filterItems(transactionDirection: TransactionDirection?) {
+        adapter.filter(transactionDirection)
     }
 }

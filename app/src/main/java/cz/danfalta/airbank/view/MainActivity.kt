@@ -3,6 +3,7 @@ package cz.danfalta.airbank.view
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.databinding.library.baseAdapters.BR
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.getListAdapter
 import com.afollestad.materialdialogs.list.listItemsSingleChoice
@@ -13,8 +14,9 @@ import cz.danfalta.airbank.viewmodel.TransactionListViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity<ActivityMainBinding, TransactionListViewModel>() {
-
+    override val layoutId = R.layout.activity_main
     override val viewModelClass = TransactionListViewModel::class.java
+    override val viewModelBindingVariable = BR.viewmodel
 
     private lateinit var filterDialog: MaterialDialog
     private var filterSelection: Int = 0
@@ -24,13 +26,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, TransactionListViewModel>
         const val KEY_STATE_FILTER_OPEN = "KEY_STATE_FILTER_OPEN"
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.activity_main
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setupBinding()
         setupViews(savedInstanceState)
         observe()
 
@@ -50,9 +47,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, TransactionListViewModel>
         if (isFilterShowing) filterDialog.show()
     }
 
-    private fun setupBinding() {
-        binding.viewmodel = viewModel
-    }
 
     private fun observe() {
         viewModel.clickListener = {
@@ -79,13 +73,11 @@ class MainActivity : BaseActivity<ActivityMainBinding, TransactionListViewModel>
         filterSelection = selection
         filterDialog = MaterialDialog(this)
                 .listItemsSingleChoice(R.array.filter, initialSelection = selection) { dialog, index, text ->
-                    val transactionAdapter = recycler_view.adapter as TransactionAdapter
-                    transactionAdapter.filter(
-                            when (index) {
-                                1 -> TransactionDirection.INCOMING
-                                2 -> TransactionDirection.OUTGOING
-                                else -> null
-                            })
+                    viewModel.filterItems(when (index) {
+                        1 -> TransactionDirection.INCOMING
+                        2 -> TransactionDirection.OUTGOING
+                        else -> null
+                    })
                     filterSelection = index
                 }
     }

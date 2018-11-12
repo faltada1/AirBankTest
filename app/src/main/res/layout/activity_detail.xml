@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="viewmodel"
+            name="transactionViewModel"
             type="cz.danfalta.airbank.viewmodel.TransactionViewModel" />
 
         <variable
@@ -31,7 +31,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:transaction="@{transaction}" />
+            app:transaction="@{transactionViewModel.transaction}" />
 
         <TextView
             android:id="@+id/text_account_name_header"
@@ -40,7 +40,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/account_name_header"
             android:textSize="18sp"
-            android:visibility="@{viewmodel.visibilityObservableField}"
+            android:visibility="@{transactionViewModel.visibilityObservableField}"
             app:layout_constraintStart_toStartOf="@+id/layout_transaction"
             app:layout_constraintTop_toBottomOf="@+id/layout_transaction" />
 
@@ -52,7 +52,7 @@
             android:layout_marginTop="8dp"
             android:text="@string/account_number_header"
             android:textSize="18sp"
-            android:visibility="@{viewmodel.visibilityObservableField}"
+            android:visibility="@{transactionViewModel.visibilityObservableField}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_account_name_header" />
 
@@ -63,7 +63,7 @@
             android:layout_marginTop="8dp"
             android:text="@string/account_bank_code_header"
             android:textSize="18sp"
-            android:visibility="@{viewmodel.visibilityObservableField}"
+            android:visibility="@{transactionViewModel.visibilityObservableField}"
             app:layout_constraintStart_toStartOf="@+id/text_account_number_header"
             app:layout_constraintTop_toBottomOf="@+id/text_account_number_header" />
 
@@ -73,10 +73,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:text="@{viewmodel.accountNameObservableField}"
+            android:text="@{transactionViewModel.accountNameObservableField}"
             android:textAlignment="textEnd"
             android:textSize="18sp"
-            android:visibility="@{viewmodel.visibilityObservableField}"
+            android:visibility="@{transactionViewModel.visibilityObservableField}"
             app:layout_constraintEnd_toEndOf="@+id/layout_transaction"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/text_account_name_header"
@@ -89,10 +89,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="@{viewmodel.accountNumberObservableField}"
+            android:text="@{transactionViewModel.accountNumberObservableField}"
             android:textAlignment="textEnd"
             android:textSize="18sp"
-            android:visibility="@{viewmodel.visibilityObservableField}"
+            android:visibility="@{transactionViewModel.visibilityObservableField}"
             app:layout_constraintEnd_toEndOf="@+id/text_account_name"
             app:layout_constraintStart_toEndOf="@+id/text_account_number_header"
             app:layout_constraintTop_toBottomOf="@+id/text_account_name"
@@ -104,10 +104,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="@{viewmodel.bankCodeObservableField}"
+            android:text="@{transactionViewModel.bankCodeObservableField}"
             android:textAlignment="textEnd"
             android:textSize="18sp"
-            android:visibility="@{viewmodel.visibilityObservableField}"
+            android:visibility="@{transactionViewModel.visibilityObservableField}"
             app:layout_constraintEnd_toEndOf="@+id/text_account_number"
             app:layout_constraintStart_toEndOf="@+id/text_bank_code_header"
             app:layout_constraintTop_toBottomOf="@+id/text_account_number"
